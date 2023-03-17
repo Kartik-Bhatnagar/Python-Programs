@@ -1,12 +1,12 @@
-t = input("Enter ")
-out_str =''
+t = input("Enter the text to be encrypted : ")
+out_str = ''
 for i in t:
-    if(ord(i) in range(65,91)): #big alphabetic characters
-            ordi = ord(i)
-            
-            #-----------VERSION 1-----------
-            #out_str+=chr((((ordi-64)+3)%26)+64)
-            """ Problem with this was that when giving the input A-Z it was gving result of each no. correct ecept for 'W'->@
+  if (ord(i) in range(65, 91)):  #big alphabetic characters
+    ordi = ord(i)
+
+    #-----------VERSION 1-----------
+    #out_str+=chr((((ordi-64)+3)%26)+64)
+    """ Problem with this was that when giving the input A-Z it was gving result of each no. correct ecept for 'W'->@
             ABCDEFGHIJKLMNOPQRSTUVWXYZ
             DEFGHIJKLMNOPQRSTUVWXY@ABC
 
@@ -24,16 +24,38 @@ for i in t:
                                                         
             """
 
-            #__________-vERSION 2------------------
-            """"""
-            out_str+=chr(((((ordi-64)+3)-1)%26)+64+1)
-            #print(chr((((ordi-64)+3)%26)+64),end="")
-    elif(ord(i) in range(97,123)): #small alphabetic characters    
-            ordi = ord(i)
-            #out_str += chr((((ordi-96)+3)%26)+96)
-            out_str+=chr(((((ordi-96)+3)-1)%26)+96+1)
-            #print(chr((((ordi-96)+3)%26)+96),end="")
+    #__________-vERSION 2------------------
+    """"""
+    out_str += chr(((((ordi - 64) + 3) - 1) % 26) + 64 + 1)
+    #print(chr((((ordi-64)+3)%26)+64),end="")
+  elif (ord(i) in range(97, 123)):  #small alphabetic characters
+    ordi = ord(i)
+    #out_str += chr((((ordi-96)+3)%26)+96)
+    out_str += chr(((((ordi - 96) + 3) - 1) % 26) + 96 + 1)
+    #print(chr((((ordi-96)+3)%26)+96),end="")
+  else:
+    #print(i)
+    out_str += i
+print("Encrypted text :", out_str)
+
+
+def decrypt(text):
+  out_str = ''
+  for i in text:
+    ordi = ord(i)
+    
+    if (ordi in range(65, 91)):  #big alphabetic characters
+      
+      out_str += chr(((((ordi - 64) - 3) - 1) % 26) + 64 + 1)
+      #print(chr((((ordi-64)+3)%26)+64),end="")
+    elif (ordi in range(97, 123)):  #small alphabetic characters
+      #out_str += chr((((ordi-96)+3)%26)+96)
+      out_str += chr(((((ordi - 96) - 3) - 1) % 26) + 96 + 1)
+      #print(chr((((ordi-96)+3)%26)+96),end="")
     else:
-            #print(i)
-            out_str += i
-print(out_str)            
+      #print(i)
+      out_str += i
+  return(out_str)  
+  
+
+print("Decrypted text",decrypt(out_str))
